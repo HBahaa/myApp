@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>devices</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content class="card-background-page">
+  <ion-list>
+    <button ion-item detail-none (click)="deviceDate()">
+      <ion-icon ios="ios-phone-portrait" md="md-phone-portrait" item-start></ion-icon>
+        Mobile
+      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>
+    </button>
+    <button ion-item detail-none (click)="deviceDate()">
+      <ion-icon name="pin" item-start></ion-icon>
+        Position
+      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>
+    </button>
+    <button ion-item detail-none (click)="deviceDate()">
+      <ion-icon ios="ios-bulb" md="md-bulb" item-start></ion-icon>
+        Electricity Sensor
+      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>
