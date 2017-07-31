@@ -104,18 +104,6 @@ var HomePage = (function () {
         //  this.items.splice(indexes.to, 0, element);
     };
     ;
-    // actionBtn(){
-    //  if(this.btnName == 'edit')
-    //  {
-    //    this.btnName = 'Done';
-    //    this.flag    = true;
-    //  }
-    //  else
-    //  {
-    //    this.btnName = 'edit';
-    //    this.flag    = false;
-    //  }
-    // };
     HomePage.prototype.ionViewWillEnter = function () {
         this.viewCtrl.showBackButton(false);
     };
@@ -126,7 +114,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar hideBackButton="true">\n    <ion-title>Home</ion-title>\n    <!-- <ion-buttons end>\n      <button ion-button small clear (click)="actionBtn();">\n        {{btnName}}\n      </button>\n    </ion-buttons> -->\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <button ion-button color="danger" (click)="showDevices()" style="border-radius:50%;text-decoration:none; padding:22px 10px;position:fixed;z-index:99;box-shadow:1px 1px 5px #222; right:10px; bottom:20px"><ion-icon name="md-create"></ion-icon></button>\n  <!-- <button ion-button clear (click)="showDevices()" start><ion-icon name="add-circle" item-start></ion-icon> Add Devices</button> -->\n\n\n  <ion-list no-lines>\n    <!-- <ion-list-header>Company Names</ion-list-header> -->\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);" style="margin:10px;">\n       <ion-item class="card horizontal"  *ngFor="let item of items" style="padding: 0px; margin-bottom:5px">\n\n         <div class="crd-content" style="padding:5px 0 0 20px;width:100%">\n           <div class="crd-title" style="width:100%;padding-bottom: 15px;">\n             <hr style="background-color:#EBA220; height:5px;border-radius:5px;">\n           </div>\n           <h3 style="color:#DB5050;padding-bottom:5px; font-size:24px">{{item}}</h3>\n           <p style="color:#00C768"><span style="font-size: 22px; padding-left:20px;">23</span><span style="font-size:20px"> c</span></p>\n           <ion-icon ios="ios-thermometer" md="md-thermometer" end style="font-size:55px; position: absolute;color:#DB5050; right: 20px; bottom:15px"></ion-icon>\n         </div>\n\n     </ion-item>\n    </ion-item-group>\n  </ion-list>\n\n\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar hideBackButton="true">\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <button ion-button color="danger" (click)="showDevices()" class="addBtn"><ion-icon name="md-create"></ion-icon></button>\n\n  <ion-list no-lines>\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);">\n       <ion-item class="card horizontal"  *ngFor="let item of items">\n\n         <div class="card-content">\n           <div class="card-title">\n             <hr>\n           </div>\n           <h3>{{item}}</h3>\n           <p><span class="val">23</span><span class="unit"> c</span></p>\n           <ion-icon ios="ios-thermometer" md="md-thermometer" end></ion-icon>\n         </div>\n\n     </ion-item>\n    </ion-item-group>\n  </ion-list>\n\n\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* ViewController */]])
 ], HomePage);

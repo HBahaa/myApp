@@ -1,33 +1,25 @@
 <ion-header>
   <ion-navbar hideBackButton="true">
     <ion-title>Home</ion-title>
-    <!-- <ion-buttons end>
-      <button ion-button small clear (click)="actionBtn();">
-        {{btnName}}
-      </button>
-    </ion-buttons> -->
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content class="content">
-  <button ion-button color="danger" (click)="showDevices()" style="border-radius:50%;text-decoration:none; padding:22px 10px;position:fixed;z-index:99;box-shadow:1px 1px 5px #222; right:10px; bottom:20px"><ion-icon name="md-create"></ion-icon></button>
-  <!-- <button ion-button clear (click)="showDevices()" start><ion-icon name="add-circle" item-start></ion-icon> Add Devices</button> -->
-
+  <button ion-button color="danger" (click)="showDevices()" class="addBtn"><ion-icon name="md-create"></ion-icon></button>
 
   <ion-list no-lines>
-    <!-- <ion-list-header>Company Names</ion-list-header> -->
-    <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);" style="margin:10px;">
-       <ion-item class="card horizontal"  *ngFor="let item of items" style="padding: 0px; margin-bottom:5px">
+    <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);">
+       <ion-item class="card horizontal"  *ngFor="let item of items">
 
-         <div class="crd-content" style="padding:5px 0 0 20px;width:100%">
-           <div class="crd-title" style="width:100%;padding-bottom: 15px;">
-             <hr style="background-color:#EBA220; height:5px;border-radius:5px;">
+         <div class="card-content">
+           <div class="card-title">
+             <hr>
            </div>
-           <h3 style="color:#DB5050;padding-bottom:5px; font-size:24px">{{item}}</h3>
-           <p style="color:#00C768"><span style="font-size: 22px; padding-left:20px;">23</span><span style="font-size:20px"> c</span></p>
-           <ion-icon ios="ios-thermometer" md="md-thermometer" end style="font-size:55px; position: absolute;color:#DB5050; right: 20px; bottom:15px"></ion-icon>
+           <h3>{{item}}</h3>
+           <p><span class="val">23</span><span class="unit"> c</span></p>
+           <ion-icon ios="ios-thermometer" md="md-thermometer" end></ion-icon>
          </div>
 
      </ion-item>
