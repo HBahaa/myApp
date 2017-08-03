@@ -70151,27 +70151,27 @@ ion-navbar.toolbar {
   }
 }
 
-page-devices .card-background-page ion-grid ion-col.col {
+page-devices .content ion-grid ion-col.col {
   padding: 0px;
   margin: 0px;
   margin-left: -2px;
 }
 
-page-devices .card-background-page ion-grid ion-col.col ion-card.card {
+page-devices .content ion-grid ion-col.col ion-card.card {
   margin: 2px;
   width: 100%;
 }
 
-page-devices .card-background-page ion-grid ion-col.col ion-card.card img {
+page-devices .content ion-grid ion-col.col ion-card.card img {
   height: 150px;
 }
 
-page-devices .card-background-page ion-grid ion-col.col ion-card {
+page-devices .content ion-grid ion-col.col ion-card {
   position: relative;
   text-align: center;
 }
 
-page-devices .card-background-page ion-grid ion-col.col .card-title {
+page-devices .content ion-grid ion-col.col .card-title {
   position: absolute;
   top: 25%;
   font-size: 2.0em;
@@ -70180,7 +70180,7 @@ page-devices .card-background-page ion-grid ion-col.col .card-title {
   color: #fff;
 }
 
-page-devices .card-background-page ion-grid ion-col.col .card-subtitle {
+page-devices .content ion-grid ion-col.col .card-subtitle {
   font-size: 1.0em;
   position: absolute;
   top: 50%;
@@ -70188,7 +70188,7 @@ page-devices .card-background-page ion-grid ion-col.col .card-subtitle {
   color: #fff;
 }
 
-page-devices .card-background-page ion-grid ion-col.col button {
+page-devices .content ion-grid ion-col.col button {
   position: absolute;
   top: 60%;
   text-decoration: underline;
