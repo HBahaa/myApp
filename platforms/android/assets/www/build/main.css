@@ -70151,27 +70151,27 @@ ion-navbar.toolbar {
   }
 }
 
-page-devices .card-background-page ion-grid ion-col.col {
+page-devices .content ion-grid ion-col.col {
   padding: 0px;
   margin: 0px;
   margin-left: -2px;
 }
 
-page-devices .card-background-page ion-grid ion-col.col ion-card.card {
+page-devices .content ion-grid ion-col.col ion-card.card {
   margin: 2px;
   width: 100%;
 }
 
-page-devices .card-background-page ion-grid ion-col.col ion-card.card img {
+page-devices .content ion-grid ion-col.col ion-card.card img {
   height: 150px;
 }
 
-page-devices .card-background-page ion-grid ion-col.col ion-card {
+page-devices .content ion-grid ion-col.col ion-card {
   position: relative;
   text-align: center;
 }
 
-page-devices .card-background-page ion-grid ion-col.col .card-title {
+page-devices .content ion-grid ion-col.col .card-title {
   position: absolute;
   top: 25%;
   font-size: 2.0em;
@@ -70180,7 +70180,7 @@ page-devices .card-background-page ion-grid ion-col.col .card-title {
   color: #fff;
 }
 
-page-devices .card-background-page ion-grid ion-col.col .card-subtitle {
+page-devices .content ion-grid ion-col.col .card-subtitle {
   font-size: 1.0em;
   position: absolute;
   top: 50%;
@@ -70188,7 +70188,7 @@ page-devices .card-background-page ion-grid ion-col.col .card-subtitle {
   color: #fff;
 }
 
-page-devices .card-background-page ion-grid ion-col.col button {
+page-devices .content ion-grid ion-col.col button {
   position: absolute;
   top: 60%;
   text-decoration: underline;
@@ -70199,41 +70199,96 @@ page-home {
   /*-------- ion-item -----------*/
 }
 
-page-home .content button {
-  text-decoration: underline;
+page-home .content button.addBtn {
+  border-radius: 50%;
+  padding: 22px 12px;
+  -webkit-box-shadow: 1px 1px 5px #222;
+  box-shadow: 1px 1px 5px #222;
+  position: fixed;
+  z-index: 99;
+  right: 10px;
+  bottom: 20px;
 }
 
-page-home .content button ion-icon {
+page-home .content button.addBtn ion-icon {
   font-size: 25px;
-  margin-right: 5px;
 }
 
-page-home .content .card {
+page-home .content ion-item-group {
+  margin: 10px;
   border-radius: 5px;
 }
 
-page-home .content .card .card-image ion-icon {
+page-home .content ion-item-group ion-item.card.horizontal {
+  padding: 0px;
+  margin-bottom: 5px;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content {
+  padding: 5px 0 0 20px;
+  width: 100%;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content .card-title {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content .card-title hr {
+  background-color: #EBA220;
+  height: 5px;
+  border-radius: 5px;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content h3 {
+  color: #DB5050;
+  padding-bottom: 5px;
+  font-size: 24px;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content p {
+  color: #00C768;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content p .val {
+  font-size: 22px;
+  padding-left: 20px;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content p span.unit {
+  font-size: 20px;
+}
+
+page-home .content ion-item-group ion-item.card.horizontal .card-content ion-icon {
+  font-size: 55px;
+  color: #DB5050;
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+}
+
+page-home .content ion-item-group .card-image ion-icon {
   font-size: 55px;
   line-height: 130px;
   padding: 0 30px 0 10px;
   color: #DB5050;
 }
 
-page-home .content .card .card-content .card-title {
+page-home .content ion-item-group .card-content .card-title {
   width: 100%;
 }
 
-page-home .content .card .card-content .card-title hr {
+page-home .content ion-item-group .card-content .card-title hr {
   background-color: #EBA220;
   height: 5px;
   border-radius: 5px;
 }
 
-page-home .content .card .card-content h3 {
+page-home .content ion-item-group .card-content h3 {
   color: #DB5050;
 }
 
-page-home .content .card .card-content p {
+page-home .content ion-item-group .card-content p {
   color: #00C768;
   font-size: 20px;
 }

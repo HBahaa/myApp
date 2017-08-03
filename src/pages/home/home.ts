@@ -3,7 +3,7 @@ import { NavController, ViewController , NavParams, reorderArray} from 'ionic-an
 import { Storage } from '@ionic/storage';
 import {DataServiceProvider} from '../../providers/data-service/data-service';
 import { DevicesPage } from '../devices/devices';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import * as $ from 'jquery';
 
 

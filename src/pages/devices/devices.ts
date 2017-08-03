@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { DeviceDataPage } from '../device-data/device-data';
 import { Storage } from '@ionic/storage';
-import { Http, Headers } from '@angular/http';
-import * as $ from 'jquery';
 
 
 @Component({
@@ -12,11 +10,11 @@ import * as $ from 'jquery';
 })
 export class DevicesPage {
 
-  devices:any;  param1:any;
+  devices:any;
 
   icons:any = {"mobile": "phone-portrait", "Electricity Sensor": "ios-bulb-outline", "Light Sensor":"md-bulb", "Distance Sensor":"md-compass"};
 
-  constructor(public http: Http, public navCtrl: NavController, public storage: Storage, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public storage: Storage, public navParams: NavParams) {
 
     // this.devices = ["Distance Sensor", "Electricity Sensor", "Light Sensor"]
     this.storage.get('devices').then((data) => {
@@ -31,7 +29,7 @@ export class DevicesPage {
   }
 
   deviceDate(device){
-    this.navCtrl.push(DeviceDataPage,{param1: device});
+    this.navCtrl.push(DeviceDataPage,{'param1': device});
   }
 
 }
