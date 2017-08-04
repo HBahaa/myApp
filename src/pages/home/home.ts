@@ -12,24 +12,32 @@ import * as $ from 'jquery';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  btnName:any = "edit";
-  items:any[] = ['apple', 'google', 'intel'];
+  items:any[];
   flag: any = false;
   devices:any;
+  username:string;
+  token:string;
+  icons:any = {"c8y_TemperatureMeasurement": "ios-thermometer", "c8y_LightMeasurement":"md-bulb", "c8y_AccelerationMeasurement":"md-compass"};
 
 
-  constructor(public navCtrl: NavController,public navParams: NavParams,
+    constructor(public navCtrl: NavController,public navParams: NavParams,
               private viewCtrl: ViewController,public storage: Storage,
               public dataService : DataServiceProvider, public http: Http) {
-
+       this.diplayItems();
     // this.doRefresh(0);
+  }
 
+  diplayItems(){
+    this.storage.get('devicesMeasurements').then((data)=>{
+      if(data != null){
+        this.items = data;
+      }
+    })
   }
 
   doRefresh(refresher){
-      this.storage.get('devices').then((data) => {
+      this.storage.get('devicesMeasurements').then((data) => {
         this.items = data;
-
         if(refresher != 0)
            refresher.complete();
       });
@@ -37,59 +45,17 @@ export class HomePage {
 
   reorderItems(indexes){
     this.items = reorderArray(this.items, indexes);
-    // this.storage.set('devices', this.items);
-    // this.doRefresh(0);
-  //  let element = this.items[indexes.from];
-  //  this.items.splice(indexes.from, 1);
-  //  this.items.splice(indexes.to, 0, element);
   };
 
 
   ionViewWillEnter() {
       this.viewCtrl.showBackButton(false);
+      this.diplayItems()
   }
 
-  getData(){
-
-    var storage = this.storage;
-    var navCtrl = this.navCtrl;
-    var devices = this.devices;
-
-
-    function myFilter(objs){
-      return objs.filter((obj)=>{
-        return obj['c8y_SupportedMeasurements'];
-      }).map((obj)=>{
-        return (({ id, name, c8y_SupportedMeasurements }) => ({ id, name, c8y_SupportedMeasurements }))(obj)
-      })
-    }
-
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": "http://mw3demo.cumulocity.com/inventory/managedObjects?owner=ahmed.essam%40mw3.com.eg",
-      "method": "GET",
-      "headers": {
-        "authorization": "Basic YWhtZWQuZXNzYW1AbXczLmNvbS5lZzpTYW1sZWUxMiFA",
-        "cache-control": "no-cache",
-        "postman-token": "18e9de96-efcd-b4f4-646e-e0b3d99d8cf8",
-      }
-    }
-
-
-    $.ajax(settings).done(function (response) {
-      var objs = response.managedObjects;
-      var newObjs = myFilter(objs);
-      var devices = newObjs;
-      console.log("newObjs",newObjs);
-      storage.set('devices', devices);
-      navCtrl.push(DevicesPage);
-    });
-
-  }
 
   showDevices(){
-    this.getData()
+    this.navCtrl.push(DevicesPage);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+// import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
@@ -7,23 +7,33 @@ import 'rxjs/add/operator/map';
 export class AuthServiceProvider {
   url:any;
   response:any;
+  username: any;
+  password: any;
+  token:any;
 
 devices:any;
 
-  constructor(public http: Http,public storage: Storage) {
+  constructor(public storage: Storage) {
     console.log('Hello AuthServiceProvider Provider');
+    // this.authFN();
   }
 
-  authFN()
+  checkToken(name, token)
   {
-    var headers = new Headers();
-   headers.append("authorization", "Basic YWhtZWQuZXNzYW1AbXczLmNvbS5lZzpTYW1sZWUxMiFA");
-   headers.append("cache-control", "no-cache");
-   headers.append("postman-token", "c660d227-14ed-534d-5ad9-3b140d0172fa");
+    // this.username= "ahmed.essam@mw3.com.eg";
+    // this.token = "Basic YWhtZWQuZXNzYW1AbXczLmNvbS5lZzpTYW1sZWUxMiFA";
 
-   this.http.get('http://mw3demo.cumulocity.com/inventory/managedObjects?owner=ahmed.essam%40mw3.com.eg', {headers:headers}).map(res => res.json()).subscribe(data => {
-       this.devices = data;
-   });
+    return new Promise((resolve)=>{
+      if(name == undefined && token == undefined)
+      {
+        resolve(false);
+      }
+      else{
+        resolve(true);
+      }
+
+    })
+
   }
 
 

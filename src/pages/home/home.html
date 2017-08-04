@@ -10,15 +10,15 @@
   <button ion-button color="danger" (click)="showDevices()" class="addBtn"><ion-icon name="md-create"></ion-icon></button>
   <ion-list no-lines>
     <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);">
-       <ion-item class="card horizontal"  *ngFor="let item of items">
+       <ion-item class="card horizontal" *ngFor="let item of items">
 
          <div class="card-content">
            <div class="card-title">
              <hr>
            </div>
-           <h3>{{item}}</h3>
-           <p><span class="val">23</span><span class="unit"> c</span></p>
-           <ion-icon ios="ios-thermometer" md="md-thermometer" end></ion-icon>
+           <h3>{{item.name}}</h3>
+           <p><span class="val">{{item.value}}</span><span class="unit"> {{item.unit}}</span></p>
+           <ion-icon name="{{icons[item]}}" end></ion-icon>
          </div>
 
      </ion-item>

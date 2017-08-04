@@ -7,16 +7,15 @@ import { ItemDataPage } from '../item-data/item-data';
   templateUrl: 'device-data.html',
 })
 export class DeviceDataPage {
+   device:any;
+  icons:any = {"c8y_TemperatureMeasurement": "ios-thermometer", "c8y_LightMeasurement":"md-bulb", "c8y_AccelerationMeasurement":"md-compass"};
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.device = this.navParams.get('param1');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DeviceDataPage');
-  }
-
-  selectedItem(){
-    this.navCtrl.push(ItemDataPage);
+  selectedItem(id, item){
+    this.navCtrl.push(ItemDataPage, {'param1': id, 'param2': item});
   }
 
 }

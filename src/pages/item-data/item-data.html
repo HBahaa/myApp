@@ -9,16 +9,14 @@
 
 <ion-content>
   <ion-grid>
-    <form>
+    <form (ngSubmit)="AddNewItem()">
       <ion-list>
         <ion-item>
           <ion-label color="primary" stacked>Enter Name</ion-label>
-          <ion-input type="text" placeholder="Enter Name" name=""></ion-input>
+          <ion-input type="text" placeholder="Enter Name" name="itemName" [(ngModel)]="itemName"></ion-input>
         </ion-item>
-        <button ion-button item-end icon-left>
-          <ion-icon name="add"></ion-icon>
-          Add
-        </button>
+        <button ion-button item-end icon-left type="submit">
+          <ion-icon name="add"></ion-icon>Save</button>
       </ion-list>
     </form>
   </ion-grid>
