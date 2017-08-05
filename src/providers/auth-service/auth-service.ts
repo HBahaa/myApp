@@ -10,8 +10,7 @@ export class AuthServiceProvider {
   username: any;
   password: any;
   token:any;
-
-devices:any;
+  devices:any;
 
   constructor(public storage: Storage) {
     console.log('Hello AuthServiceProvider Provider');

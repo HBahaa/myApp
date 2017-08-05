@@ -22,10 +22,11 @@ export class HomePage {
 
     constructor(public navCtrl: NavController,public navParams: NavParams,
               private viewCtrl: ViewController,public storage: Storage,
-              public dataService : DataServiceProvider, public http: Http) {
-       this.diplayItems();
-    // this.doRefresh(0);
-  }
+              public dataService : DataServiceProvider, public http: Http
+            ) {
+            this.diplayItems();
+            this.doRefresh(0);
+            }
 
   diplayItems(){
     this.storage.get('devicesMeasurements').then((data)=>{
@@ -45,13 +46,17 @@ export class HomePage {
 
   reorderItems(indexes){
     this.items = reorderArray(this.items, indexes);
+    this.storage.set("devicesMeasurements", this.items);
   };
+
+  
 
 
   ionViewWillEnter() {
       this.viewCtrl.showBackButton(false);
       this.diplayItems()
   }
+
 
 
   showDevices(){

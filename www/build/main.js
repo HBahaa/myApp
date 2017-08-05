@@ -202,11 +202,14 @@ var LoginPage_1;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataServiceProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_jquery__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -220,30 +223,107 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var DataServiceProvider = (function () {
-    function DataServiceProvider(http, storage) {
+    function DataServiceProvider(http, storage, loadingCtrl, alertCtrl) {
         this.http = http;
         this.storage = storage;
+        this.loadingCtrl = loadingCtrl;
+        this.alertCtrl = alertCtrl;
         console.log('Hello DataServiceProvider Provider');
     }
-    DataServiceProvider.prototype.checkData = function () {
-        var _this = this;
-        this.storage.get('devices').then(function (data) {
-            _this.devices = data;
-            if (_this.devices == '') {
+    DataServiceProvider.prototype.getDataService = function (id, type, token, userMeasurementName, currentPage) {
+        if (currentPage === void 0) { currentPage = 1; }
+        var my = this;
+        var value;
+        var unit;
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://mw3demo.cumulocity.com/measurement/measurements?source=" + id + "&type=" + type + "&currentPage=" + currentPage,
+            "method": "GET",
+            "headers": {
+                "authorization": "Basic " + token,
+                "cache-control": "no-cache",
+            }
+        };
+        __WEBPACK_IMPORTED_MODULE_5_jquery__["ajax"](settings).done(function (response) {
+            console.log("response", response);
+            if (response.statistics.totalPages == null) {
+                if (response.measurements.length > 1) {
+                    var l = response.measurements.length;
+                    var obj = response.measurements[l - 1];
+                    if (type == "c8y_TemperatureMeasurement") {
+                        value = obj[type]["T"]["value"];
+                        unit = obj[type]["T"]["unit"];
+                    }
+                    else if (type == "c8y_LightMeasurement") {
+                        value = obj[type]["e"]["value"];
+                        unit = obj[type]["e"]["unit"];
+                    }
+                    else if (type == "c8y_AccelerationMeasurement") {
+                        value = obj[type]["acceleration"]["value"];
+                        unit = obj[type]["acceleration"]["unit"];
+                    }
+                    var newItem = {
+                        "deviceID": id,
+                        "name": userMeasurementName,
+                        "item": type,
+                        "value": value,
+                        "unit": unit
+                    };
+                    my.storage.get('devicesMeasurements').then(function (data) {
+                        if (data == null) {
+                            var arr = [newItem];
+                            my.storage.set('devicesMeasurements', arr);
+                        }
+                        else {
+                            data.push(newItem);
+                            my.storage.set("devicesMeasurements", data);
+                        }
+                    });
+                    my.loader.dismiss();
+                    // my.navCtrl.push(HomePage);
+                }
+                else {
+                    my.loader.dismiss();
+                    my.showAlert("No measurements to be added!");
+                    // my.navCtrl.push(DevicesPage);
+                }
             }
             else {
-                return _this.devices;
+                var current = response.statistics.totalPages;
+                my.getDataService(id, type, token, userMeasurementName, currentPage = current);
             }
+        }).fail(function (error) {
+            console.log("error", error);
+            my.loader.dismiss();
+            my.showAlert("Error while saving data!");
         });
+    };
+    DataServiceProvider.prototype.presentLoading = function () {
+        this.loader = this.loadingCtrl.create({
+            content: "Please Wait..."
+        });
+        this.loader.present();
+    };
+    DataServiceProvider.prototype.showAlert = function (title) {
+        var alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: title,
+            buttons: ['OK']
+        });
+        alert.present();
     };
     return DataServiceProvider;
 }());
 DataServiceProvider = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]])
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["e" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["e" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object])
 ], DataServiceProvider);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=data-service.js.map
 
 /***/ }),
@@ -289,10 +369,9 @@ DevicesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-devices',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/devices/devices.html"*/'\n<ion-header>\n\n  <ion-navbar>\n  <ion-title>Devices</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <ion-list>\n    <button ion-item detail-none *ngFor="let device of devices" (click)="deviceDate(device)">\n        <p><span>{{device.id}}</span> {{device.name}}</p>\n      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/devices/devices.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
 ], DevicesPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=devices.js.map
 
 /***/ }),
@@ -333,10 +412,9 @@ DeviceDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-device-data',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/device-data/device-data.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Device Measurements</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item detail-none *ngFor="let item of device.c8y_SupportedMeasurements" (click)="selectedItem(device.id,item)">\n      <ion-icon name="{{icons[item]}}" item-start></ion-icon>\n        {{item}}\n      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/device-data/device-data.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
 ], DeviceDataPage);
 
-var _a, _b;
 //# sourceMappingURL=device-data.js.map
 
 /***/ }),
@@ -349,9 +427,8 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jquery__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_data_service_data_service__ = __webpack_require__(197);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -367,96 +444,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ItemDataPage = (function () {
-    function ItemDataPage(navCtrl, navParams, storage, loadingCtrl, alertCtrl) {
+    function ItemDataPage(navCtrl, navParams, storage, loadingCtrl, alertCtrl, dataService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.alertCtrl = alertCtrl;
+        this.dataService = dataService;
         this.id = this.navParams.get('param1');
-        this.item = this.navParams.get('param2');
+        this.type = this.navParams.get('param2');
     }
     ItemDataPage.prototype.AddNewItem = function () {
         var _this = this;
-        this.presentLoading();
+        this.dataService.presentLoading();
         this.storage.get('userData').then(function (data) {
             _this.token = data.token;
             console.log("this.token this.token= ", _this.token);
-        });
-        var elem = this.item;
-        var itemName = this.itemName;
-        var id = this.id;
-        var my = this;
-        var value;
-        var unit;
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://mw3demo.cumulocity.com/measurement/measurements?source=" + this.id + "&type=" + this.item,
-            "method": "GET",
-            "headers": {
-                "authorization": "Basic YWhtZWQuZXNzYW1AbXczLmNvbS5lZzpTYW1sZWUxMiFA",
-                "cache-control": "no-cache",
-            }
-        };
-        __WEBPACK_IMPORTED_MODULE_3_jquery__["ajax"](settings).done(function (response) {
-            console.log("response", response);
-            var l = response.measurements.length;
-            var obj = response.measurements[l - 1];
-            // if(obj.length > 1){
-            if (elem == "c8y_TemperatureMeasurement") {
-                value = obj[elem]["T"]["value"];
-                unit = obj[elem]["T"]["unit"];
-            }
-            else if (elem == "c8y_LightMeasurement") {
-                value = obj[elem]["e"]["value"];
-                unit = obj[elem]["e"]["unit"];
-            }
-            else if (elem == "c8y_AccelerationMeasurement") {
-                value = obj[elem]["acceleration"]["value"];
-                unit = obj[elem]["acceleration"]["unit"];
-            }
-            var newItem = {
-                "deviceID": id,
-                "name": itemName,
-                "item": elem,
-                "value": value,
-                "unit": unit
-            };
-            my.storage.get('devicesMeasurements').then(function (data) {
-                if (data == null) {
-                    var arr = [newItem];
-                    my.storage.set('devicesMeasurements', arr);
-                }
-                else {
-                    data.push(newItem);
-                    my.storage.set("devicesMeasurements", data);
-                }
-            });
-            my.loader.dismiss();
-            my.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
+            _this.dataService.getDataService(_this.id, _this.type, _this.token, _this.itemName);
+            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+            // if(this.flag == true){
+            //   this.navCtrl.push(HomePage)
             // }
             // else{
-            //   my.showAlert()
-            //   my.navCtrl.pop(ItemDataPage);
+            //   this.navCtrl.pop(ItemDataPage)
             // }
-        }).fail(function (error) {
-            console.log("error", error);
         });
-    };
-    ItemDataPage.prototype.presentLoading = function () {
-        this.loader = this.loadingCtrl.create({
-            content: "Please Wait..."
-        });
-        this.loader.present();
-    };
-    ItemDataPage.prototype.showAlert = function () {
-        var alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: 'No measurements to be added!',
-            buttons: ['OK']
-        });
-        alert.present();
     };
     return ItemDataPage;
 }());
@@ -464,10 +476,10 @@ ItemDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-item-data',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/item-data/item-data.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>item_data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n    <form (ngSubmit)="AddNewItem()">\n      <ion-list>\n        <ion-item>\n          <ion-label color="primary" stacked>Enter Name</ion-label>\n          <ion-input type="text" placeholder="Enter Name" name="itemName" [(ngModel)]="itemName"></ion-input>\n        </ion-item>\n        <button ion-button item-end icon-left type="submit">\n          <ion-icon name="add"></ion-icon>Save</button>\n      </ion-list>\n    </form>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/item-data/item-data.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__providers_data_service_data_service__["a" /* DataServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_data_service_data_service__["a" /* DataServiceProvider */]) === "function" && _f || Object])
 ], ItemDataPage);
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=item-data.js.map
 
 /***/ }),
@@ -641,10 +653,9 @@ var MyApp = (function () {
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/app/app.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_7__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]])
 ], MyApp);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -686,7 +697,7 @@ var HomePage = (function () {
         this.flag = false;
         this.icons = { "c8y_TemperatureMeasurement": "ios-thermometer", "c8y_LightMeasurement": "md-bulb", "c8y_AccelerationMeasurement": "md-compass" };
         this.diplayItems();
-        // this.doRefresh(0);
+        this.doRefresh(0);
     }
     HomePage.prototype.diplayItems = function () {
         var _this = this;
@@ -707,6 +718,7 @@ var HomePage = (function () {
     ;
     HomePage.prototype.reorderItems = function (indexes) {
         this.items = Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* reorderArray */])(this.items, indexes);
+        this.storage.set("devicesMeasurements", this.items);
     };
     ;
     HomePage.prototype.ionViewWillEnter = function () {
