@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, LoadingController  } from 'i
 import { Storage } from '@ionic/storage';
 import * as $ from 'jquery';
 import { HomePage } from '../home/home';
+import { DeviceDataPage } from '../device-data/device-data';
 import {DataServiceProvider} from '../../providers/data-service/data-service';
 
 @Component({
@@ -32,16 +33,13 @@ export class ItemDataPage {
     this.storage.get('userData').then((data)=>{
       this.token = data.token;
       console.log("this.token this.token= ", this.token )
-      this.dataService.getDataService(this.id, this.type, this.token, this.itemName);
-      this.navCtrl.push(HomePage)
-
-        // if(this.flag == true){
-        //   this.navCtrl.push(HomePage)
-        // }
-        // else{
-        //   this.navCtrl.pop(ItemDataPage)
-        // }
-
+      this.dataService.getDataService(this.id, this.type, this.token, this.itemName).then((flag)=>{
+        if(flag == true){
+          this.navCtrl.push(HomePage)
+        }else{
+          this.navCtrl.push(DeviceDataPage)
+        }
+      });
 
     });
 

@@ -18,81 +18,90 @@ export class DataServiceProvider {
   }
 
   getDataService(id, type, token, userMeasurementName, currentPage=1){
-    let my = this;
-    let value;
-    let unit
 
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": "http://mw3demo.cumulocity.com/measurement/measurements?source="+id+"&type="+type+"&currentPage="+currentPage,
-      "method": "GET",
-      "headers": {
-        "authorization": token,
-        "cache-control": "no-cache",
+    return new Promise((resolve)=>{
+
+      let my = this;
+      let value;
+      let unit
+
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://mw3demo.cumulocity.com/measurement/measurements?source="+id+"&type="+type+"&currentPage="+currentPage,
+        "method": "GET",
+        "headers": {
+          "authorization": token,
+          "cache-control": "no-cache",
+        }
       }
-    }
 
 
-    $.ajax(settings).done(function (response) {
-      console.log("response", response)
-
-      if(response.statistics.totalPages == null){
-
-        if(response.measurements.length > 1){
-          let l = response.measurements.length
-          var obj = response.measurements[l-1];
-          if(type == "c8y_TemperatureMeasurement"){
-            value = obj[type]["T"]["value"];
-            unit = obj[type]["T"]["unit"];
-          }else if(type == "c8y_LightMeasurement"){
-            value = obj[type]["e"]["value"];
-            unit = obj[type]["e"]["unit"];
-          }else if(type == "c8y_AccelerationMeasurement"){
-            value = obj[type]["acceleration"]["value"];
-            unit = obj[type]["acceleration"]["unit"];
-          }
-
-          var newItem = {
-            "deviceID":id,
-            "name":userMeasurementName,
-            "item":type,
-            "value":value,
-            "unit":unit
-          }
-
-          my.storage.get('devicesMeasurements').then((data)=>{
-            if(data == null){
-              var arr = [newItem]
-              my.storage.set('devicesMeasurements', arr);
-            }else{
-              data.push(newItem);
-              my.storage.set("devicesMeasurements", data)
+      $.ajax(settings).done(function (response) {
+        console.log("response", response)
+        if(response.statistics.totalPages == null){
+          console.log("response.statistics.totalPages == null")
+          if(response.measurements.length > 1){
+            console.log("response.measurements.length > 1")
+            let l = response.measurements.length
+            var obj = response.measurements[l-1];
+            if(type == "c8y_TemperatureMeasurement"){
+              value = obj[type]["T"]["value"];
+              unit = obj[type]["T"]["unit"];
+            }else if(type == "c8y_LightMeasurement"){
+              value = obj[type]["e"]["value"];
+              unit = obj[type]["e"]["unit"];
+            }else if(type == "c8y_AccelerationMeasurement"){
+              value = obj[type]["acceleration"]["value"];
+              unit = obj[type]["acceleration"]["unit"];
             }
-          })
-          my.loader.dismiss();
-          // my.navCtrl.push(HomePage);
+
+            var newItem = {
+              "deviceID":id,
+              "name":userMeasurementName,
+              "type":type,
+              "value":value,
+              "unit":unit
+            }
+
+            my.storage.get('devicesMeasurements').then((data)=>{
+              if(data == null){
+                var arr = [newItem]
+                my.storage.set('devicesMeasurements', arr);
+              }else{
+                data.push(newItem);
+                my.storage.set("devicesMeasurements", data)
+              }
+            })
+
+            my.loader.dismiss();
+            resolve(true);
+          }
+          else{
+
+            my.loader.dismiss();
+            my.showAlert("No measurements to be added!")
+            resolve(false);
+          }
+
+
+        }else{
+
+          let current = response.statistics.totalPages;
+          my.getDataService(id, type, token, userMeasurementName, currentPage=current)
+
         }
-        else{
-          my.loader.dismiss();
-          my.showAlert("No measurements to be added!")
-          // my.navCtrl.push(DevicesPage);
-        }
+
+      }).fail((error)=>{
+        console.log("error error", error)
+        my.loader.dismiss();
+        my.showAlert("Error while saving data!")
+        resolve(false)
+      });
 
 
-      }else{
+    })
 
-        let current = response.statistics.totalPages;
-
-        my.getDataService(id, type, token, userMeasurementName, currentPage=current)
-
-      }
-
-    }).fail((error)=>{
-      console.log("error", error)
-      my.loader.dismiss();
-      my.showAlert("Error while saving data!")
-    });
 
   }
 
