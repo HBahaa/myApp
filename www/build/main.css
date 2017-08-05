@@ -70224,6 +70224,13 @@ page-home .content ion-item-group ion-item.card.horizontal {
   margin-bottom: 5px;
 }
 
+page-home .content ion-item-group ion-item.card.horizontal ion-icon {
+  position: absolute;
+  right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
 page-home .content ion-item-group ion-item.card.horizontal .card-content {
   padding: 5px 0 0 20px;
   width: 100%;
@@ -70305,6 +70312,11 @@ page-home ion-item.item .item-block {
 
 ion-reorder {
   margin-top: -95px;
+  margin-right: 20px;
+}
+
+.list-md ion-item-options .button {
+  height: calc(100% - 6px);
 }
 
 page-item-data .card .card-image img {

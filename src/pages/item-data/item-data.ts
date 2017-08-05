@@ -13,8 +13,9 @@ import {DataServiceProvider} from '../../providers/data-service/data-service';
 export class ItemDataPage {
   type:any;
   id:any;
-  itemName:any;
+  itemName:string;
   token:any;
+  tenant:string;
   loader:any;
   flag:any;
 
@@ -32,8 +33,11 @@ export class ItemDataPage {
 
     this.storage.get('userData').then((data)=>{
       this.token = data.token;
+      this.tenant = data.tenant;
+
       console.log("this.token this.token= ", this.token )
-      this.dataService.getDataService(this.id, this.type, this.token, this.itemName).then((flag)=>{
+      console.log("this.tenant this.tenant= ", this.tenant )
+      this.dataService.getDataService(this.tenant, this.id, this.type, this.token, this.itemName).then((flag)=>{
         if(flag == true){
           this.navCtrl.push(HomePage)
         }else{

@@ -17,7 +17,7 @@ export class DataServiceProvider {
     console.log('Hello DataServiceProvider Provider');
   }
 
-  getDataService(id, type, token, userMeasurementName, currentPage=1){
+  getDataService(tenant,id, type, token, userMeasurementName, currentPage=1){
 
     return new Promise((resolve)=>{
 
@@ -38,6 +38,7 @@ export class DataServiceProvider {
 
 
       $.ajax(settings).done(function (response) {
+        console.log("respone ===", response);
         console.log("response", response)
         if(response.statistics.totalPages == null){
           console.log("response.statistics.totalPages == null")
@@ -77,11 +78,10 @@ export class DataServiceProvider {
             my.loader.dismiss();
             resolve(true);
           }
-          else{
-
+          else if(response.measurements.length == 0){
+            console.log("response.measurements.length == 0")
             my.loader.dismiss();
             my.showAlert("No measurements to be added!")
-            resolve(false);
           }
 
 
@@ -96,7 +96,6 @@ export class DataServiceProvider {
         console.log("error error", error)
         my.loader.dismiss();
         my.showAlert("Error while saving data!")
-        resolve(false)
       });
 
 

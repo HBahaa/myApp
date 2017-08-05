@@ -21,6 +21,8 @@ export class MyApp {
   constructor(public storage: Storage,public loadingCtrl: LoadingController,
               platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
              public authService: AuthServiceProvider) {
+
+
     this.presentLoading();
     this.loadingPage();
   }
