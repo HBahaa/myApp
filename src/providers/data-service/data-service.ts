@@ -38,12 +38,8 @@ export class DataServiceProvider {
 
 
       $.ajax(settings).done(function (response) {
-        console.log("respone ===", response);
-        console.log("response", response)
         if(response.statistics.totalPages == null){
-          console.log("response.statistics.totalPages == null")
           if(response.measurements.length > 1){
-            console.log("response.measurements.length > 1")
             let l = response.measurements.length
             var obj = response.measurements[l-1];
             if(type == "c8y_TemperatureMeasurement"){

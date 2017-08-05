@@ -22,7 +22,9 @@ export class MyApp {
               platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
              public authService: AuthServiceProvider) {
 
-
+              //  this.storage.remove("userData");
+              //  this.storage.remove("devices");
+              //  this.storage.remove("devicesMeasurements");
     this.presentLoading();
     this.loadingPage();
   }
