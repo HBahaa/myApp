@@ -19,9 +19,6 @@ export class AuthServiceProvider {
 
   checkToken(name, token)
   {
-    // this.username= "ahmed.essam@mw3.com.eg";
-    // this.token = "Basic YWhtZWQuZXNzYW1AbXczLmNvbS5lZzpTYW1sZWUxMiFA";
-
     return new Promise((resolve)=>{
       if(name == undefined && token == undefined)
       {
@@ -30,10 +27,6 @@ export class AuthServiceProvider {
       else{
         resolve(true);
       }
-
     })
-
   }
-
-
 }

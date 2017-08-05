@@ -44,8 +44,7 @@ export class LoginPage {
     var devices = this.devices;
     var my = this;
 
-    this.token =  window.btoa(this.username+':'+this.password);
-
+    this.token = "Basic " + window.btoa(this.username+':'+this.password);
     function myFilter(objs){
       return objs.filter((obj)=>{
         return obj['c8y_SupportedMeasurements'];
@@ -57,12 +56,10 @@ export class LoginPage {
     var settings = {
       "async": true,
       "crossDomain": true,
-      // "url": "http://mw3demo.cumulocity.com/inventory/managedObjects?owner=ahmed.essam@mw3.com.eg",
       "url": `http://mw3demo.cumulocity.com/inventory/managedObjects?owner=${this.username}`,
       "method": "GET",
       "headers": {
-        // "authorization":"Basic YWhtZWQuZXNzYW1AbXczLmNvbS5lZzpTYW1sZWUxMiFA",
-        "authorization": `Basic ${this.token}`,
+        "authorization": `${this.token}`,
         "cache-control": "no-cache",
         "postman-token": "18e9de96-efcd-b4f4-646e-e0b3d99d8cf8",
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',

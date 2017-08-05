@@ -18,34 +18,39 @@ export class MyApp {
   username:any;
   token:any;
 
-  constructor(public storage: Storage,public loadingCtrl: LoadingController, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthServiceProvider) {
+  constructor(public storage: Storage,public loadingCtrl: LoadingController,
+              platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+             public authService: AuthServiceProvider) {
     this.presentLoading();
+    this.loadingPage();
+  }
 
-
+  loadingPage(){
     this.storage.ready().then(()=>{
 
       this.storage.get("userData").then((data)=>{
         if(data != null){
           this.username = data.username;
           this.token = data.token;
-          console.log("this.username", this.username)
+          this.authService.checkToken(this.username, this.token).then((isLoggedIn)=>{
+            if(isLoggedIn){
+
+              this.rootPage = HomePage;
+            }
+            else{
+              this.rootPage = LoginPage;
+            }
+            this.loader.dismiss();
+          });
+        }else if(data == null){
+          this.loader.dismiss();
+          this.rootPage = LoginPage;
         }
 
       })
 
 
-    }).then((data)=>{
-      this.authService.checkToken(this.username, this.token).then((isLoggedIn)=>{
-        if(isLoggedIn){
-          this.rootPage = HomePage;
-        }
-        else{
-          this.rootPage = LoginPage;
-        }
-        this.loader.dismiss();
-      });
     })
-
 
   }
 

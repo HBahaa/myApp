@@ -28,7 +28,7 @@ export class DataServiceProvider {
       "url": "http://mw3demo.cumulocity.com/measurement/measurements?source="+id+"&type="+type+"&currentPage="+currentPage,
       "method": "GET",
       "headers": {
-        "authorization": "Basic "+token,
+        "authorization": token,
         "cache-control": "no-cache",
       }
     }

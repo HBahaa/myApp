@@ -49,8 +49,6 @@ export class HomePage {
     this.storage.set("devicesMeasurements", this.items);
   };
 
-  
-
 
   ionViewWillEnter() {
       this.viewCtrl.showBackButton(false);
