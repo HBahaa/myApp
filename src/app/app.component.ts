@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ToastController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,13 +20,22 @@ export class MyApp {
 
   constructor(public storage: Storage,public loadingCtrl: LoadingController,
               platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-             public authService: AuthServiceProvider) {
-
-              //  this.storage.remove("userData");
-              //  this.storage.remove("devices");
-              //  this.storage.remove("devicesMeasurements");
+             public authService: AuthServiceProvider,public toastCtrl:ToastController) {
+              platform.ready().then(()=>{
+                    platform.registerBackButtonAction(()=>this.myHandlerFunction());
+                    // StatusBar.styleDefault();
+                    // Splashscreen.hide();
+              })
     this.presentLoading();
     this.loadingPage();
+  }
+
+  myHandlerFunction(){
+     let toast = this.toastCtrl.create({
+        message: "Press Again to Confirm Exit",
+        duration: 3000
+      });
+      toast.present();
   }
 
   loadingPage(){

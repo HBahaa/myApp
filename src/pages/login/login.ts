@@ -44,7 +44,7 @@ export class LoginPage {
     var navCtrl = this.navCtrl;
     var devices = this.devices;
     var my = this;
-    
+
     this.token = "Basic " + window.btoa(this.username+':'+this.password);
     function myFilter(objs){
       return objs.filter((obj)=>{
@@ -76,7 +76,10 @@ export class LoginPage {
       {
         var objs = response.managedObjects;
         var devices = myFilter(objs);
-
+        for(let i in devices){
+          devices[i]["disableBTN"] = false;
+        }
+        console.log("devices", devices)
         storage.set('devices', devices).then(()=>{
           console.log("from set devices", devices)
         });
@@ -106,7 +109,9 @@ export class LoginPage {
         $.ajax(settings).done(function (response) {
           var objs = response.managedObjects;
           var devices = myFilter(objs);
-
+          for(let i in devices){
+            devices[i]["disableBTN"] = false;
+          }
           storage.set('devices', devices).then(()=>{
             console.log("from set devices", devices)
           });

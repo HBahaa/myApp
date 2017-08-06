@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item detail-none *ngFor="let item of device.c8y_SupportedMeasurements" (click)="selectedItem(device.id,item)">
+    <button ion-item detail-none *ngFor="let item of device.c8y_SupportedMeasurements" [disabled]="disableBTN" (click)="selectedItem(device.id,item)">
       <ion-icon name="{{icons[item]}}" item-start></ion-icon>
         {{item}}
       <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>

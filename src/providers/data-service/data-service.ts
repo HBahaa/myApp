@@ -70,7 +70,16 @@ export class DataServiceProvider {
                 my.storage.set("devicesMeasurements", data)
               }
             })
-
+            my.storage.get("devices").then((data)=>{
+              for(let i in data){
+                if(data[i]["id"] == id){
+                  data[i]["disableBTN"]=true;
+                  my.storage.set("devices", data).then(()=>{
+                  });
+                  break;
+                }
+              }
+            })
             my.loader.dismiss();
             resolve(true);
           }

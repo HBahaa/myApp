@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { DevicesPage } from '../devices/devices';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Http } from '@angular/http';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -83,13 +84,32 @@ export class HomePage {
   }
   ionViewDidEnter() {
       this.diplayItems()
-      this.doRefresh(0);
+
   }
 
   removeItem(index){
     if(index > -1){
-      this.items.splice(index, 1);
-      this.storage.set("devicesMeasurements", this.items)
+
+      this.storage.get("devices").then((data)=>{
+        console.log('this.items', this.items)
+        console.log('this.items["deviceID"]', this.items["deviceID"])
+        console.log("jsdhjsdjgdg")
+        for(let i in data){
+          if(data[i]["id"] == this.items[index]["deviceID"]){
+            console.log('data[i]["id"] == this.items["deviceID"')
+            data[i]["disableBTN"]=false;
+            this.storage.set("devices", data).then(()=>{
+              console.log("done")
+              this.items.splice(index, 1);
+              this.storage.set("devicesMeasurements", this.items)
+            });
+            break
+
+          }
+        }
+      })
+
+
     }
   }
 
