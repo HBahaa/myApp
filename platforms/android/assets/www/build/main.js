@@ -603,9 +603,9 @@ var MyApp = (function () {
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.authService = authService;
-        this.storage.remove("userData");
-        this.storage.remove("devices");
-        this.storage.remove("devicesMeasurements");
+        //  this.storage.remove("userData");
+        //  this.storage.remove("devices");
+        //  this.storage.remove("devicesMeasurements");
         this.presentLoading();
         this.loadingPage();
     }
