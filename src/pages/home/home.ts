@@ -18,7 +18,7 @@ export class HomePage {
   username:string;
   token:string;
   icons:any = {"c8y_TemperatureMeasurement": "ios-thermometer", "c8y_LightMeasurement":"md-bulb", "c8y_AccelerationMeasurement":"md-compass"};
-  colors:any = {"c8y_TemperatureMeasurement":"black","c8y_LightMeasurement":["green","green"], "c8y_AccelerationMeasurement":["green","green"]}
+  colors:any= {"c8y_TemperatureMeasurement": ["c1"], "c8y_LightMeasurement":["color5"], "c8y_AccelerationMeasurement":["c4"]};
   item:any;
 
     constructor(public navCtrl: NavController,public navParams: NavParams,
@@ -89,27 +89,18 @@ export class HomePage {
 
   removeItem(index){
     if(index > -1){
-
       this.storage.get("devices").then((data)=>{
-        console.log('this.items', this.items)
-        console.log('this.items["deviceID"]', this.items["deviceID"])
-        console.log("jsdhjsdjgdg")
         for(let i in data){
           if(data[i]["id"] == this.items[index]["deviceID"]){
-            console.log('data[i]["id"] == this.items["deviceID"')
             data[i]["disableBTN"]=false;
             this.storage.set("devices", data).then(()=>{
-              console.log("done")
               this.items.splice(index, 1);
               this.storage.set("devicesMeasurements", this.items)
             });
             break
-
           }
         }
       })
-
-
     }
   }
 

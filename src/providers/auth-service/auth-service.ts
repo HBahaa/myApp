@@ -16,8 +16,6 @@ export class AuthServiceProvider {
   items:any;
 
   constructor(public storage: Storage) {
-    console.log('Hello AuthServiceProvider Provider');
-    // this.authFN();
   }
 
   checkToken(name, token)

@@ -21,11 +21,13 @@ export class MyApp {
   constructor(public storage: Storage,public loadingCtrl: LoadingController,
               platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
              public authService: AuthServiceProvider,public toastCtrl:ToastController) {
-              platform.ready().then(()=>{
-                    platform.registerBackButtonAction(()=>this.myHandlerFunction());
-                    // StatusBar.styleDefault();
-                    // Splashscreen.hide();
-              })
+
+        platform.ready().then(() => {
+            platform.registerBackButtonAction(() => {
+                navigator['app'].exitApp();
+            });
+        });
+
     this.presentLoading();
     this.loadingPage();
   }
@@ -47,7 +49,6 @@ export class MyApp {
           this.token = data.token;
           this.authService.checkToken(this.username, this.token).then((isLoggedIn)=>{
             if(isLoggedIn){
-
               this.rootPage = HomePage;
             }
             else{
@@ -59,12 +60,8 @@ export class MyApp {
           this.loader.dismiss();
           this.rootPage = LoginPage;
         }
-
       })
-
-
     })
-
   }
 
   presentLoading() {

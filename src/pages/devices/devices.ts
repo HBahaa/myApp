@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 export class DevicesPage {
 
   devices:any;
+  colors:any = ["color1", "color2", "color3", "color4", "color5", "color6"];
 
   constructor(public navCtrl: NavController, public storage: Storage, public navParams: NavParams) {
     this.storage.get('devices').then((data) => {

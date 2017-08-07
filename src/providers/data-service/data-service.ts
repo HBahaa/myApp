@@ -14,7 +14,6 @@ export class DataServiceProvider {
 
   constructor(public http: Http, public storage: Storage,
   public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
-    console.log('Hello DataServiceProvider Provider');
   }
 
   getDataService(tenant,id, type, token, userMeasurementName, currentPage=1){
@@ -84,28 +83,21 @@ export class DataServiceProvider {
             resolve(true);
           }
           else if(response.measurements.length == 0){
-            console.log("response.measurements.length == 0")
             my.loader.dismiss();
             my.showAlert("No measurements to be added!")
           }
 
-
         }else{
-
           let current = response.statistics.totalPages;
           my.getDataService(id, type, token, userMeasurementName, currentPage=current)
-
         }
 
       }).fail((error)=>{
-        console.log("error error", error)
         my.loader.dismiss();
-        my.showAlert("Error while saving data!")
+        my.showAlert("Error while saving data, Check your internet connection!")
       });
 
-
     })
-
 
   }
 

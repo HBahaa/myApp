@@ -25,9 +25,9 @@ var DeviceDataPage = (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.icons = { "c8y_TemperatureMeasurement": "ios-thermometer", "c8y_LightMeasurement": "md-bulb", "c8y_AccelerationMeasurement": "md-compass" };
+        this.colors = { "c8y_TemperatureMeasurement": ["danger"], "c8y_LightMeasurement": ["light"], "c8y_AccelerationMeasurement": ["secondary"] };
         this.device = this.navParams.get('param1');
         this.disableBTN = this.device.disableBTN;
-        console.log("this.device.disableBTN", this.device.disableBTN);
     }
     DeviceDataPage.prototype.selectedItem = function (id, item) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__item_data_item_data__["a" /* ItemDataPage */], { 'param1': id, 'param2': item });
@@ -36,12 +36,11 @@ var DeviceDataPage = (function () {
 }());
 DeviceDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-device-data',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/device-data/device-data.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Device Measurements</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item detail-none *ngFor="let item of device.c8y_SupportedMeasurements" [disabled]="disableBTN" (click)="selectedItem(device.id,item)">\n      <ion-icon name="{{icons[item]}}" item-start></ion-icon>\n        {{item}}\n      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/device-data/device-data.html"*/,
+        selector: 'page-device-data',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/device-data/device-data.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Device Measurements</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item detail-none *ngFor="let item of device.c8y_SupportedMeasurements" [disabled]="disableBTN" (click)="selectedItem(device.id,item)">\n      <ion-icon name="{{icons[item]}}" color="{{colors[item]}}" item-start></ion-icon>\n        <h2 ion-text color="{{colors[item]}}">{{item}}</h2>\n      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/device-data/device-data.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], DeviceDataPage);
 
-var _a, _b;
 //# sourceMappingURL=device-data.js.map
 
 /***/ }),
@@ -216,10 +215,12 @@ LoginPage = LoginPage_1 = __decorate([
         selector: 'page-login',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/login/login.html"*/'\n<ion-content class="login-content">\n  <div class="login-box">\n    <form #loginForm="ngForm" (ngSubmit)="login()">\n      <ion-row>\n        <ion-col>\n          <h3>Login</h3>\n          <ion-label>Please Enter Your<br> Cumulocity Credentials</ion-label>\n\n          <ion-list inset>\n            <ion-item>\n              <ion-input type="text" placeholder="Tenant" name="tenant" [(ngModel)]="tenant" required></ion-input>\n            </ion-item>\n            <ion-item>\n              <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="username" required></ion-input>\n            </ion-item>\n\n            <ion-item>\n              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="password" required></ion-input>\n            </ion-item>\n\n            <button ion-button type="submit" [disabled]="!loginForm.form.valid"><ion-icon ios="ios-exit" md="md-exit"></ion-icon> Login</button>\n\n          </ion-list>\n\n        </ion-col>\n      </ion-row>\n    </form>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/login/login.html"*/,
         providers: [__WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
 ], LoginPage);
 
-var LoginPage_1, _a, _b, _c, _d, _e;
+var LoginPage_1;
 //# sourceMappingURL=login.js.map
 
 /***/ }),
@@ -252,6 +253,7 @@ var DevicesPage = (function () {
         this.navCtrl = navCtrl;
         this.storage = storage;
         this.navParams = navParams;
+        this.colors = ["color1", "color2", "color3", "color4", "color5", "color6"];
         this.storage.get('devices').then(function (data) {
             _this.devices = data;
         });
@@ -263,7 +265,7 @@ var DevicesPage = (function () {
 }());
 DevicesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-devices',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/devices/devices.html"*/'\n<ion-header>\n\n  <ion-navbar>\n  <ion-title>Devices</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <ion-list>\n    <button ion-item detail-none *ngFor="let device of devices" (click)="deviceDate(device)">\n        <p><span>{{device.id}}</span> {{device.name}}</p>\n      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/devices/devices.html"*/,
+        selector: 'page-devices',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/devices/devices.html"*/'\n<ion-header>\n\n  <ion-navbar>\n  <ion-title>Devices</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="content">\n  <ion-list>\n    <button ion-item detail-none *ngFor="let device of devices; let i=index;" (click)="deviceDate(device)">\n        <p ion-text><span class="devID">{{device.id}}</span> {{device.name}}</p>\n      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" item-end></ion-icon>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/devices/devices.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], DevicesPage);
@@ -331,7 +333,7 @@ var ItemDataPage = (function () {
 }());
 ItemDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-item-data',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/item-data/item-data.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>item_data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-grid>\n    <form (ngSubmit)="AddNewItem()">\n      <ion-list>\n        <ion-item>\n          <ion-label color="primary" stacked>Enter Name</ion-label>\n          <ion-input type="text" placeholder="Enter Name" name="itemName" [(ngModel)]="itemName"></ion-input>\n        </ion-item>\n        <button ion-button item-end icon-left type="submit">\n          <ion-icon name="add"></ion-icon>Save</button>\n      </ion-list>\n    </form>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/item-data/item-data.html"*/,
+        selector: 'page-item-data',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/item-data/item-data.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>item_data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div class="box">\n          <h5 ion-text color="danger">Add Name for Measurement</h5>\n          <form (ngSubmit)="AddNewItem()">\n            <ion-list inset>\n              <ion-item>\n                <ion-label color="primary" stacked>Enter Name:</ion-label>\n                <ion-input type="text" placeholder="Enter Name" name="itemName" [(ngModel)]="itemName"></ion-input>\n              </ion-item>\n              <button ion-button item-end icon-left right type="submit">\n                <ion-icon name="add"></ion-icon>Save</button>\n            </ion-list>\n          </form>\n        </div>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/item-data/item-data.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
@@ -376,7 +378,6 @@ var DataServiceProvider = (function () {
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.alertCtrl = alertCtrl;
-        console.log('Hello DataServiceProvider Provider');
     }
     DataServiceProvider.prototype.getDataService = function (tenant, id, type, token, userMeasurementName, currentPage) {
         var _this = this;
@@ -443,7 +444,6 @@ var DataServiceProvider = (function () {
                         resolve(true);
                     }
                     else if (response.measurements.length == 0) {
-                        console.log("response.measurements.length == 0");
                         my.loader.dismiss();
                         my.showAlert("No measurements to be added!");
                     }
@@ -453,9 +453,8 @@ var DataServiceProvider = (function () {
                     my.getDataService(id, type, token, userMeasurementName, currentPage = current);
                 }
             }).fail(function (error) {
-                console.log("error error", error);
                 my.loader.dismiss();
-                my.showAlert("Error while saving data!");
+                my.showAlert("Error while saving data, Check your internet connection!");
             });
         });
     };
@@ -477,10 +476,10 @@ var DataServiceProvider = (function () {
 }());
 DataServiceProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* AlertController */]])
 ], DataServiceProvider);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=data-service.js.map
 
 /***/ }),
@@ -618,15 +617,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var MyApp = (function () {
     function MyApp(storage, loadingCtrl, platform, statusBar, splashScreen, authService, toastCtrl) {
-        var _this = this;
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.authService = authService;
         this.toastCtrl = toastCtrl;
         platform.ready().then(function () {
-            platform.registerBackButtonAction(function () { return _this.myHandlerFunction(); });
-            // StatusBar.styleDefault();
-            // Splashscreen.hide();
+            platform.registerBackButtonAction(function () {
+                navigator['app'].exitApp();
+            });
         });
         this.presentLoading();
         this.loadingPage();
@@ -719,7 +717,7 @@ var HomePage = (function () {
         this.appCtrl = appCtrl;
         this.flag = false;
         this.icons = { "c8y_TemperatureMeasurement": "ios-thermometer", "c8y_LightMeasurement": "md-bulb", "c8y_AccelerationMeasurement": "md-compass" };
-        this.colors = { "c8y_TemperatureMeasurement": "black", "c8y_LightMeasurement": ["green", "green"], "c8y_AccelerationMeasurement": ["green", "green"] };
+        this.colors = { "c8y_TemperatureMeasurement": ["c1"], "c8y_LightMeasurement": ["color5"], "c8y_AccelerationMeasurement": ["c4"] };
         this.diplayItems();
         this.doRefresh(0);
         var my = this;
@@ -778,15 +776,10 @@ var HomePage = (function () {
         var _this = this;
         if (index > -1) {
             this.storage.get("devices").then(function (data) {
-                console.log('this.items', _this.items);
-                console.log('this.items["deviceID"]', _this.items["deviceID"]);
-                console.log("jsdhjsdjgdg");
                 for (var i in data) {
                     if (data[i]["id"] == _this.items[index]["deviceID"]) {
-                        console.log('data[i]["id"] == this.items["deviceID"');
                         data[i]["disableBTN"] = false;
                         _this.storage.set("devices", data).then(function () {
-                            console.log("done");
                             _this.items.splice(index, 1);
                             _this.storage.set("devicesMeasurements", _this.items);
                         });
@@ -803,12 +796,14 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar hideBackButton="true">\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <button ion-button color="danger" (click)="showDevices()" class="addBtn"><ion-icon name="md-create"></ion-icon></button>\n  <ion-list no-lines>\n    <!-- <ion-icon name="trash"></ion-icon> -->\n\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);">\n      <ion-item-sliding *ngFor="let item of items;let i=index">\n\n       <ion-item class="card horizontal">\n         <ion-icon name="ios-close-circle-outline" (click)="removeItem(i)"></ion-icon>\n         <div class="card-content">\n           <div class="card-title">\n             <hr>\n           </div>\n           <h3>{{item.name}}</h3>\n           <p><span class="val">{{item.value}}</span><span class="unit"> {{item.unit}}</span></p>\n           <ion-icon name="{{icons[item.type]}}" end></ion-icon>\n         </div>\n\n     </ion-item>\n     <ion-item-options side="right">\n       <button ion-button default color="danger" (click)="removeItem(i)">\n         <ion-icon name="ios-trash-outline" style="font-size: 50px"></ion-icon>\n         delete\n       </button>\n     </ion-item-options>\n   </ion-item-sliding>\n\n    </ion-item-group>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar hideBackButton="true">\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="content">\n  <button ion-button color="danger" (click)="showDevices()" class="addBtn"><ion-icon name="md-create"></ion-icon></button>\n  <ion-list no-lines>\n    <!-- <ion-icon name="trash"></ion-icon> -->\n\n    <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event);">\n      <ion-item-sliding *ngFor="let item of items;let i=index">\n\n       <ion-item class="card horizontal">\n         <ion-icon name="ios-close-circle-outline" (click)="removeItem(i)"></ion-icon>\n         <div class="card-content">\n           <div class="card-title">\n             <hr>\n           </div>\n           <h3 ion-text color="{{colors[item.type]}}">{{item.name}}</h3>\n           <p><span class="val">{{item.value}}</span><span class="unit"> {{item.unit}}</span></p>\n           <ion-icon color="{{colors[item.type]}}" name="{{icons[item.type]}}" end></ion-icon>\n         </div>\n\n     </ion-item>\n     <ion-item-options side="right">\n       <button ion-button default color="danger" (click)="removeItem(i)">\n         <ion-icon name="ios-trash-outline" style="font-size: 50px"></ion-icon>\n         delete\n       </button>\n     </ion-item-options>\n   </ion-item-sliding>\n\n    </ion-item-group>\n\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/heba/Downloads/mw3_task/myApp/src/pages/home/home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_4__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
 ], HomePage);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -841,8 +836,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthServiceProvider = (function () {
     function AuthServiceProvider(storage) {
         this.storage = storage;
-        console.log('Hello AuthServiceProvider Provider');
-        // this.authFN();
     }
     AuthServiceProvider.prototype.checkToken = function (name, token) {
         return new Promise(function (resolve) {
