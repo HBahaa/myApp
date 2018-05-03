@@ -42,7 +42,7 @@ export class LoginPage {
     this.presentLoading();
     var storage = this.storage;
     var navCtrl = this.navCtrl;
-    var devices = this.devices;
+    // var devices = this.devices;
     var my = this;
 
     this.token = "Basic " + window.btoa(this.username+':'+this.password);
@@ -79,7 +79,6 @@ export class LoginPage {
         for(let i in devices){
           devices[i]["disableBTN"] = false;
         }
-        console.log("devices", devices)
         storage.set('devices', devices).then(()=>{
           console.log("from set devices", devices)
         });
@@ -89,7 +88,7 @@ export class LoginPage {
       else{
         let total = response.statistics.totalPages;
         let size = response.statistics.pageSize;
-        let current = response.statistics.currentPage;
+        // let current = response.statistics.currentPage;
         let totalSize = total * size;
         var settings = {
           "async": true,

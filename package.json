@@ -1,7 +1,7 @@
 {
     "name": "myApp",
     "version": "0.0.1",
-    "author": "Ionic Framework",
+    "author": "Mobile Wave 3",
     "homepage": "http://ionicframework.com/",
     "private": true,
     "scripts": {
@@ -43,9 +43,7 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "2.0.2",
-        "@ionic/cli-plugin-cordova": "1.6.2",
-        "@ionic/cli-plugin-ionic-angular": "1.4.1",
-        "ionic": "3.7.0",
+        "ionic": "3.20.0",
         "typescript": "2.3.4"
     },
     "description": "An Ionic project",

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController  } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import * as $ from 'jquery';
 import { HomePage } from '../home/home';
 import { DeviceDataPage } from '../device-data/device-data';
 import {DataServiceProvider} from '../../providers/data-service/data-service';

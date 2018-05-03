@@ -8,25 +8,25 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "io.cumulocity.app"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "io.cumulocity.app"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "io.cumulocity.app"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "io.cumulocity.app"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "io.cumulocity.app"
         },
         "cordova-sqlite-storage": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "io.cumulocity.app"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "io.cumulocity.app"
         }
     },
     "dependent_plugins": {}

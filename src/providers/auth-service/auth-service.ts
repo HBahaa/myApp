@@ -33,9 +33,7 @@ export class AuthServiceProvider {
 
 
   reloadAll(tenant,id, type, token, userMeasurementName, currentPage=1){
-    console.log("reloadAll");
     return new Promise((resolve)=>{
-      console.log("reload all")
       let my = this;
       let value;
       let unit
@@ -65,13 +63,13 @@ export class AuthServiceProvider {
               value = obj[type]["acceleration"]["value"];
             }
 
-            var newItem = {
-              "deviceID":id,
-              "name":userMeasurementName,
-              "type":type,
-              "value":value,
-              "unit":unit
-            }
+            // var newItem = {
+            //   "deviceID":id,
+            //   "name":userMeasurementName,
+            //   "type":type,
+            //   "value":value,
+            //   "unit":unit
+            // }
 
             my.storage.get('devicesMeasurements').then((data)=>{
               for(let item in data){

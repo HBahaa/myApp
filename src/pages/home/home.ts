@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController , NavParams, reorderArray, App} from 'ionic-angular';
+import { NavController, ViewController , NavParams, reorderArray} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DevicesPage } from '../devices/devices';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Http } from '@angular/http';
-import * as $ from 'jquery';
-
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
   items:any[];
   flag: any = false;
@@ -23,9 +21,8 @@ export class HomePage {
 
     constructor(public navCtrl: NavController,public navParams: NavParams,
               private viewCtrl: ViewController,public storage: Storage,
-              public authService : AuthServiceProvider, public http: Http,
-              public appCtrl: App
-            ) {
+              public authService : AuthServiceProvider) 
+    {
             this.diplayItems();
             this.doRefresh(0);
             var my = this;
@@ -43,13 +40,10 @@ export class HomePage {
                     my.authService.reloadAll(tenant,deviceID, type, token, userMeasurementName).then(()=>{
                       my.storage.get("devicesMeasurements").then((data)=>{
                         my.items = data;
-                        console.log("dataaaaaaa" , my.items)
                       })
                     });
                   }
                 }
-                // // my.appCtrl.getRootNav().setRoot(HomePage);
-                // location.reload()
 
               })
 
@@ -63,7 +57,7 @@ export class HomePage {
       }
     })
   }
-
+  
   doRefresh(refresher){
       this.storage.get('devicesMeasurements').then((data) => {
         this.items = data;
